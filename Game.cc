@@ -1,6 +1,8 @@
 #include "Game.h"
-
-Game::Game() {}
+Game::Game() {
+  // ship = SpaceShip();
+  obstacles = createObstacles();
+}
 
 Game::~Game() {}
 
@@ -16,6 +18,11 @@ void Game::Draw() {
   for (auto& laser : ship.lasers) {
     laser.Draw();
   }
+
+  for(auto& obstacle: obstacles) {
+    obstacle.Draw();
+  }
+
 }
 
 void Game::HanleInput() {
@@ -36,4 +43,16 @@ void Game::DeleteInactiveLasers() {
       it++;
     }
   }
+}
+
+std::vector<Obstacle> Game::createObstacles() {
+  std::vector<Obstacle> obstacles;
+  int obstacleWidth = Obstacle::grid[0].size() * 3;
+  float gap = (GetScreenWidth() - obstacleWidth * 4) / 5;
+  for(int i = 0; i < 4; i++) {
+    float offsetX = (i + 1) * gap + i * obstacleWidth;
+    obstacles.push_back(Obstacle({offsetX, float(GetScreenHeight() - 100)}));
+  }
+
+  return obstacles;
 }
