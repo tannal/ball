@@ -2,6 +2,7 @@
 
 #include "SpaceShip.h"
 #include "Obstacle.h"
+#include "Alien.h"
 class Game {
     public:
         Game();
@@ -15,6 +16,8 @@ class Game {
     private:
         void DeleteInactiveLasers();
         std::vector<Obstacle> createObstacles();
+        std::vector<Alien> createAliens();
         std::vector<Obstacle> obstacles;
+        std::vector<Alien> aliens;
         SpaceShip ship;
 };

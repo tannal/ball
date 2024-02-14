@@ -1,7 +1,9 @@
 #include "Game.h"
+
 Game::Game() {
   // ship = SpaceShip();
   obstacles = createObstacles();
+  aliens = createAliens();
 }
 
 Game::~Game() {}
@@ -21,6 +23,10 @@ void Game::Draw() {
 
   for(auto& obstacle: obstacles) {
     obstacle.Draw();
+  }
+
+  for(auto& alien: aliens) {
+    alien.Draw();
   }
 
 }
@@ -55,4 +61,27 @@ std::vector<Obstacle> Game::createObstacles() {
   }
 
   return obstacles;
+}
+
+std::vector<Alien> Game::createAliens() {
+  std::vector<Alien> aliens;
+  for(int row = 0; row < 5; row++) {
+    for(int column = 0; column < 11; column++) {
+      float x = column * 55;
+      float y = row * 55;
+
+      if(row == 0) {
+        aliens.push_back(Alien({x, y}, 3));
+        continue;
+      }else if(row < 3) {
+        aliens.push_back(Alien({x, y}, 2));
+        continue;
+      }
+
+
+      aliens.push_back(Alien({x, y}, 1));
+    }
+  }
+
+  return aliens;
 }
